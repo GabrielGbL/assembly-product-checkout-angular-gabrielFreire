@@ -1,0 +1,55 @@
+
+
+<div class="product-page-container">
+  <div class="header-container">
+    <input
+      type="text"
+      placeholder="Filtrar"
+      [value]="filterText()"
+      (input)="addFilter($event.target.value)"
+    />
+    <div class="cart-icon-container">
+      <img src="caminho/para/icone-carrinho.png" alt="Ícone carrinho" />
+    </div>
+  </div>
+
+  <div class="card-list-container">
+    <div class="card-wrapper" *ngFor="let product of paginatedProducts()">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ product.name }}</h3>
+          <p class="card-description">{{ product.description }}</p>
+        </div>
+        <div class="card-body">
+          <div class="card-image-container">
+            <img [src]="product.photo" alt="{{ product.name }}" class="card-image" />
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="quantity-button minus-button">-</button>
+          <span class="quantity">0</span>
+          <button class="quantity-button plus-button">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <button [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">
+      Anterior
+    </button>
+    <button
+      *ngFor="let page of arrayOfPages()"
+      (click)="goToPage(page)"
+      [class.active]="page === currentPage()"
+    >
+      {{ page }}
+    </button>
+    <button
+      [disabled]="currentPage() === totalPages()"
+      (click)="goToPage(currentPage() + 1)"
+    >
+      Próxima
+    </button>
+  </div>
+</div>
