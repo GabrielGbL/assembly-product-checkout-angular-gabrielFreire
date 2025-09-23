@@ -6,10 +6,11 @@
       type="text"
       placeholder="Filtrar"
       [value]="filterText()"
-      (input)="addFilter($event.target.value)"
+      (input)="addFilter($event.target.value)"ng 
     />
     <div class="cart-icon-container">
       <img src="caminho/para/icone-carrinho.png" alt="Ícone carrinho" />
+        <p> {{ totalCartQuantity() }}</p>
     </div>
   </div>
 
@@ -26,9 +27,9 @@
           </div>
         </div>
         <div class="card-footer">
-          <button class="quantity-button minus-button">-</button>
-          <span class="quantity">0</span>
-          <button class="quantity-button plus-button">+</button>
+          <button class="quantity-button minus-button" (click)="decrementQuantity(product)">-</button>
+          <span class="quantity">{{product.quantity}}</span>
+          <button class="quantity-button plus-button" (click)="incrementQuantity(product)">+</button>
         </div>
       </div>
     </div>

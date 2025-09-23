@@ -12,7 +12,7 @@ import { Products } from '../../services/products';
 export class CartComponent {
   private productService = inject(Products);
 
-  protected products = this.productService.getProducts();
+  protected products = this.productService.getProducts().map(product => ({...product,quantity: 0}));
 
   protected filteredProducts = signal(this.products);
 
@@ -49,4 +49,20 @@ export class CartComponent {
     );
     this.currentPage.set(1);
   }
+  protected incrementQuantity(product: any) {
+  product.quantity++;
+  this.filteredProducts.set([...this.filteredProducts()]);
+}
+
+protected decrementQuantity(product: any) {
+  if (product.quantity > 0) {
+    product.quantity--;
+    this.filteredProducts.set([...this.filteredProducts()]);
+  }
+}
+
+protected totalCartQuantity = computed(() =>
+  this.filteredProducts().reduce((sum, product) => sum + product.quantity, 0)
+);
+
 }
